@@ -27,7 +27,7 @@
         background-color: #313131;
       }
         
-      .gallery {
+      :root {
         background-color: #212121;
       }
     </style>
@@ -35,7 +35,7 @@
 <body>
   <amp-list
     width="auto"
-    height="100"
+    height="800"
     layout="fixed-height"
     items="feed"
     single-item
@@ -45,9 +45,7 @@
       <amp-inline-gallery layout="container">
         <amp-base-carousel
           class="gallery"
-          layout="responsive"
-          width="3"
-          height="2"
+          layout="fill"
           snap-align="center"
           loop="true">
           {{ #entry }}
