@@ -8,58 +8,151 @@
   <script custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js" async></script>
   <script async custom-element="amp-inline-gallery" src="https://cdn.ampproject.org/v0/amp-inline-gallery-0.1.js"></script>
   <script custom-element="amp-base-carousel" src="https://cdn.ampproject.org/v0/amp-base-carousel-0.1.js" async></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
   <link rel="canonical" href="https://preview.amp.dev/documentation/components/amp-list.example.1.html">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&display=swap" rel="stylesheet">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <style>
-      .card dl {
-        color: #ccc;
+    <style amp-custom>
+      .cursive {
+        font-family: 'Nanum Pen Script', cursive;
+      }
+
+      .sans {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      .card {
+        color: var(--text-color);
         font-size: 3em;
-        margin: 64px;
-        padding: 64px;
-        border-radius: 8px;
         text-align: center;
-        max-width: 300px;
         position: relative;
         top: 50%;
         left: 50%;
+        margin-block-start: 0;
+        margin-block-end: 0;
         transform: translateX(-50%) translateY(-50%);
-        background-color: #313131;
       }
-        
-      :root {
-        background-color: #212121;
+
+      .card dd {
+        margin-inline-start: initial;
       }
+
+      .card dt, .card:hover dd {
+        display: block;
+      }
+
+      .card dd, .card:hover dt {
+        display: none;
+      }
+
+      .wrapper {
+        --text-color: #ffffff;
+        --background-color: #212121;
+        background-color: var(--background-color)
+      }
+
+      .wrapper:not(.dark) {
+        --text-color: #212121;
+        --background-color: #ffffff;
+      }
+
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      label::after {
+        content: "";
+        display:block;
+        margin: 12px;
+        width: 36px;
+        height: 36px;
+        color: #ffffff;
+        background-size: cover;
+        background-image: url("light.svg");
+      }
+
+      .wrapper:not(.dark) label::after {
+        color: #212121;
+        background-image: url("dark.svg");
+      }
+
+      #cardList, .gallery {
+        max-height: 90vh;
+      }
+
+      .header {
+        color: var(--text-color);
+        display: flex;
+        font-size: 2em;
+      }
+
+      .selector [option] {
+          padding: 8px;
+      }
+
+      .selector [option]:not([selected]) {
+          opacity: .6;
+      }
+
+      .selector [option][selected] {
+        border: none;
+        outline: none;
+      }
+
     </style>
 </head>
 <body>
-  <amp-list
+<div class="wrapper" [class]="cardState.darkmode ? 'wrapper dark' : 'wrapper'">
+  <header class="header">
+  <amp-selector id="font-selector" class="selector" layout="container" on="select:AMP.setState({cardState: {font: event.targetOption}})">
+    <span option="sans" class="sans" selected>sans</span>
+    <span option="cursive" class="cursive">cursive</span>
+  </amp-selector>
+  <label>
+  <input type="checkbox" on="change:AMP.setState({cardState: {darkmode: event.checked}})">
+  </label>
+  </header>
+  <amp-state id="cardState">
+  <script type="application/json">
+    {
+      "font": "sans",
+      "darkmode": false
+    }
+  </script>
+</amp-state>
+  <amp-list id="cardList"
     width="auto"
     height="800"
     layout="fixed-height"
     items="feed"
+    binding="refresh"
     single-item
     data-amp-replace="QUERY_PARAM"
-    src="https://spreadsheets.google.com/feeds/list/QUERY_PARAM(doc)/QUERY_PARAM(sheet)/public/values?alt=json">  
+    src="https://spreadsheets.google.com/feeds/list/QUERY_PARAM(doc)/QUERY_PARAM(sheet)/public/values?alt=json">
     <template type="amp-mustache">
       <amp-inline-gallery layout="container">
         <amp-base-carousel
           class="gallery"
-          layout="fill"
+          height="800"
+          layout="fixed-height"
           snap-align="center"
           loop="true">
           {{ #entry }}
-          <amp-layout class="card" layout="content">
-              <dl>
-                <dt>{{gsx$front.$t}}</dt>
-                <dd>{{gsx$back.$t}}</dd>
+          <amp-layout layout="container">
+              <dl class="card">
+                <dt class="sans" [class]="cardState.font">{{gsx$front.$t}}</dt>
+                <dd class="sans" [class]="cardState.font">{{gsx$back.$t}}</dd>
               </dl>
           </amp-layout>
           {{ /entry }}
         </amp-base-carousel>
-        <amp-inline-gallery-pagination layout="content" inset></amp-inline-gallery-pagination>
+        <amp-inline-gallery-pagination layout="nodisplay" inset></amp-inline-gallery-pagination>
       </amp-inline-gallery>
     </template>
   </amp-list>
+</div>
 </body>
 </html>
