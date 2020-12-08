@@ -39,16 +39,24 @@
         margin-block-end: 0;
         transform: translateX(-50%) translateY(-50%);
       }
+      
+      button {
+        color: inherit;
+        background-color: inherit;
+        border: none;
+        font: inherit;
+        padding: 0;
+      }
 
       .card dd {
         margin-inline-start: initial;
       }
 
-      .card dt, .card:hover dd {
+      .card dt, .card:focus-within dd {
         display: block;
       }
 
-      .card dd, .card:hover dt {
+      .card dd, .card:focus-within dt {
         display: none;
       }
 
