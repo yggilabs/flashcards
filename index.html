@@ -136,6 +136,7 @@
     width="auto"
     height="800"
     layout="fixed-height"
+    items = "."
     single-item
     src="amp-state:vocab">
     <template type="amp-mustache">
@@ -146,14 +147,14 @@
           layout="fixed-height"
           snap-align="center"
           loop="true">
-          {{ #. }}
+          {{ #items }}
           <amp-layout layout="container">
               <dl class="card">
                 <dt class="sans" [class]="cardState.font">{{front}}</dt>
                 <dd class="sans" [class]="cardState.font">{{back}}</dd>
               </dl>
           </amp-layout>
-          {{ /. }}
+          {{ /items }}
         </amp-base-carousel>
         <amp-inline-gallery-pagination layout="nodisplay" inset></amp-inline-gallery-pagination>
       </amp-inline-gallery>
