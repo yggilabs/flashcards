@@ -1,3 +1,5 @@
+---
+---
 <!doctype html>
 <html ⚡>
 <head>
@@ -115,6 +117,13 @@
   <input type="checkbox" on="change:AMP.setState({cardState: {darkmode: event.checked}})">
   </label>
   </header>
+  <amp-state id="vocab">
+    <script type="application/json">
+    {
+      "items": {{ site.data.vocab | sample: 5 | jsonify }}
+    }
+    </script>
+  </amp-state>
   <amp-state id="cardState">
   <script type="application/json">
     {
@@ -127,11 +136,8 @@
     width="auto"
     height="800"
     layout="fixed-height"
-    items="feed"
-    binding="refresh"
     single-item
-    data-amp-replace="QUERY_PARAM"
-    src="https://spreadsheets.google.com/feeds/list/QUERY_PARAM(doc)/QUERY_PARAM(sheet)/public/values?alt=json">
+    src="amp-state:vocab">
     <template type="amp-mustache">
       <amp-inline-gallery layout="container">
         <amp-base-carousel
@@ -140,14 +146,14 @@
           layout="fixed-height"
           snap-align="center"
           loop="true">
-          {{ #entry }}
+          {{ #. }}
           <amp-layout layout="container">
               <dl class="card">
-                <dt class="sans" [class]="cardState.font">{{gsx$front.$t}}</dt>
-                <dd class="sans" [class]="cardState.font">{{gsx$back.$t}}</dd>
+                <dt class="sans" [class]="cardState.font">{{front}}</dt>
+                <dd class="sans" [class]="cardState.font">{{back}}</dd>
               </dl>
           </amp-layout>
-          {{ /entry }}
+          {{ /. }}
         </amp-base-carousel>
         <amp-inline-gallery-pagination layout="nodisplay" inset></amp-inline-gallery-pagination>
       </amp-inline-gallery>
