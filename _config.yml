@@ -1,3 +1,4 @@
 collections:
   sets:
     output: true
+    layout: set
