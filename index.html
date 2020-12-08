@@ -137,7 +137,7 @@
 <amp-script id="dataFunctions" script="local-script" nodom data-ampdevmode></amp-script>
 <script id="local-script" type="text/plain" target="amp-script">  
   const lcg=s=>()=>(2**31-1&(s=Math.imul(48271,s)))/2**31;
-  console.log(AMP);
+  console.log(this);
   const params = new AMP.win.URLSearchParams(AMP.win.location.search);
   const seed = params.get('s');
   const rand = lcg(seed)  
