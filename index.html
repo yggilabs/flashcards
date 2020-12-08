@@ -147,6 +147,7 @@
         return (h ^= h >>> 16) >>> 0;
     }
   }
+  console.log(this.location.pathname)
   const seed = xmur3(this.location.pathname)();
   const rand = lcg(seed)  
   const list = {{ site.data.vocab | jsonify }}
