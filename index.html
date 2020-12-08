@@ -137,7 +137,7 @@
 <amp-script id="dataFunctions" script="local-script" nodom></amp-script>
 <script id="local-script" type="text/plain" target="amp-script">  
   const lcg=s=>()=>(2**31-1&(s=Math.imul(48271,s)))/2**31;
-  const params = new URLSearchParams(window.location.search);
+  const params = new AMP.win.URLSearchParams(AMP.win.location.search);
   const seed = params.get('s');
   const rand = lcg(seed)  
   const list = {{ site.data.vocab | jsonify }}
