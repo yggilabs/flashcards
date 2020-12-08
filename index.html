@@ -139,7 +139,7 @@
   const lcg=s=>()=>(2**31-1&(s=Math.imul(48271,s)))/2**31;
   console.log(this);
   const params = new AMP.win.URLSearchParams(AMP.win.location.search);
-  const seed = params.get('s');
+  const seed = location.pathname;
   const rand = lcg(seed)  
   const list = {{ site.data.vocab | jsonify }}
   const sorted = list.sort(() => rand() - 0.5)
