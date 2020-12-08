@@ -134,7 +134,9 @@
 </amp-state>
   <amp-list id="test" src="amp-state:vocab">
     <template type="amp-mustache">
+      {% raw %}
       {{front}},{{back}}<br>
+      {% endraw %}
     </template>
   </amp-list>
   <amp-list id="cardList"
@@ -145,6 +147,7 @@
     single-item
     src="amp-state:vocab">
     <template type="amp-mustache">
+      {% raw %}
       <amp-inline-gallery layout="container">
         <amp-base-carousel
           class="gallery"
@@ -163,6 +166,7 @@
         </amp-base-carousel>
         <amp-inline-gallery-pagination layout="nodisplay" inset></amp-inline-gallery-pagination>
       </amp-inline-gallery>
+      {% endraw %}
     </template>
   </amp-list>
 </div>
