@@ -12,6 +12,7 @@ const xmur3 = (str) => {
   }
 }
 
+console.log(this)
 const seed = xmur3(this.location.pathname)();
 const rand = lcg(seed)  
 const list = {{ site.data.vocab | jsonify }}
