@@ -1,4 +1,6 @@
- const lcg=s=>()=>(2**31-1&(s=Math.imul(48271,s)))/2**31;
+---
+---
+const lcg=s=>()=>(2**31-1&(s=Math.imul(48271,s)))/2**31;
   const xmur3 = (str) => {
     for(var i = 0, h = 1779033703 ^ str.length; i < str.length; i++)
         h = Math.imul(h ^ str.charCodeAt(i), 3432918353),
@@ -9,6 +11,7 @@
         return (h ^= h >>> 16) >>> 0;
     }
   }
+
   console.log(document.getElementByID("seed"))
   const seed = xmur3(this.location.pathname)();
   const rand = lcg(seed)  
@@ -19,4 +22,5 @@
   function getRemoteData() {
     return {items: sorted.slice(0,5)}
   }
+
   exportFunction('getRemoteData', getRemoteData);
